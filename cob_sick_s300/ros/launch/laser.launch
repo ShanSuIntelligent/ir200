@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="cob_sick_s300" type="cob_sick_s300" name="front_laser_driver" output="screen">
+    <param name="port" value="/dev/front_laser"/>
+    <param name="baud" value="500000"/>
+    <param name="scan_duration" value="0.025"/>
+    <param name="scan_cycle_time" value="0.04"/>
+    <param name="inverted" value="false"/>
+    <param name="scan_id" value="7"/>
+    <param name="frame_id" value="front_laser"/>
+    <param name="publish_frequency" value="12"/>
+  </node>
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="front_laser_filter">
+    <remap from="scan" to="/front_laser_driver/scan"/>
+    <remap from="scan_filtered" to="/front_laser_driver/scan_filtered"/>
+    <rosparam subst_value="true">
+      scan_filter_chain:
+      - name: angle
+        type: laser_filters/LaserScanAngularBoundsFilter
+        params:
+          lower_angle: -2.356
+          upper_angle: 2.356
+    </rosparam>
+  </node>
+  <node pkg="topic_tools" type="relay" name="front_relay" args="/front_laser_driver/scan /scan"/>
+
+  <node pkg="cob_sick_s300" type="cob_sick_s300" name="rear_laser_driver" output="screen">
+    <param name="port" value="/dev/rear_laser"/>
+    <param name="baud" value="500000"/>
+    <param name="scan_duration" value="0.025"/>
+    <param name="scan_cycle_time" value="0.04"/>
+    <param name="inverted" value="false"/>
+    <param name="scan_id" value="7"/>
+    <param name="frame_id" value="rear_laser"/>
+    <param name="publish_frequency" value="12"/>
+  </node>
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="rear_laser_filter">
+    <remap from="scan" to="/rear_laser_driver/scan"/>
+    <remap from="scan_filtered" to="/rear_laser_driver/scan_filtered"/>
+    <rosparam subst_value="true">
+      scan_filter_chain:
+      - name: angle
+        type: laser_filters/LaserScanAngularBoundsFilter
+        params:
+          lower_angle: -2.356
+          upper_angle: 2.356
+    </rosparam>
+  </node>
+  <node pkg="topic_tools" type="relay" name="rear_relay" args="/rear_laser_driver/scan /scan"/>
+
+
+</launch>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>ir100_description</name>
+  <version>1.1.2</version>
+  <description> URDF description of the C100 versions </description>
+
+  <author email="shansu@sensorobots.net">shansu</author>
+  <maintainer email="shansu@sensorobots.net">shansu</maintainer>
+  <url type="repository">https://github.com/ShanSuIntelligent</url>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>xacro</build_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>xacro</run_depend>
+  
+</package>
+
+
+

@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<robot name="ir100_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+<xacro:macro name="ir100_robot">
+  <material name="White">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <link name="base_link" >
+ <inertial>
+      <origin xyz="0 0 0.02953" rpy="0 3.14159265358979 1.5707963267949" />
+      <mass value="77.474" />
+      <inertia ixx="3.26846549663969" ixy="-0.0244315150751735" ixz="0.00286937472831613" iyy="2.55527739370802" iyz="0.0384643723703752" izz="3.82730066331617" />
+ </inertial>
+ <visual>
+     <origin xyz="0 0 0.02953" rpy="0 3.14159265358979 1.5707963267949" />
+     <material name="White"/>
+     <geometry>
+        <mesh filename="package://ir100_description/meshes/base_link.STL" />
+     </geometry>
+ </visual>
+ <collision>
+      <origin xyz="0 0 0.02953" rpy="0 3.14159265358979 1.5707963267949" />
+      <geometry>
+      <mesh filename="package://ir100_description/meshes/base_link.STL" />
+      </geometry>
+ </collision>
+  </link>
+
+  <link name="front_left_wheel_link" >
+  <inertial>
+      <mass value="3" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.025" ixy="0" ixz="0" iyy="0.025" iyz="0" izz="0.045" />
+ </inertial>
+ <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ir100_description/meshes/wheel.STL" />
+      </geometry>
+      <material name="black"/>
+ </visual>
+ <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+      <cylinder length="0.85" radius="0.62" />
+      </geometry>
+ </collision>
+  </link>
+
+  <joint name="front_left_wheel_joint" type="continuous">
+      <origin xyz="0.305 0.305 0.02953" rpy="-1.5707963267949 0.343792057554545 3.14159265358979" />
+      <parent link="base_link" />
+      <child link="front_left_wheel_link" />
+      <axis xyz="0 0 -1" />
+  </joint>
+
+  <link name="front_right_wheel_link" >
+  <inertial>
+      <mass value="3" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.025" ixy="0" ixz="0" iyy="0.025" iyz="0" izz="0.045" />
+  </inertial>
+  <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ir100_description/meshes/wheel.STL" />
+      </geometry>
+      <material name="black"/>
+  </visual>
+  <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.85" radius="0.62" />
+      </geometry>
+  </collision>
+  </link>
+
+  <joint name="front_right_wheel_joint" type="continuous">
+    <origin xyz="0.305 -0.305 0.02953" rpy="1.5707963267949 0.343792057554545 3.14159265358979" />
+    <parent link="base_link" />
+    <child link="front_right_wheel_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+
+  <link name="rear_left_wheel_link" >
+  <inertial>
+      <mass value="3" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.025" ixy="0" ixz="0" iyy="0.025" iyz="0" izz="0.045" />
+ </inertial>
+ <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ir100_description/meshes/wheel.STL" />
+      </geometry>
+      <material name="black"/>
+ </visual>
+ <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+      <cylinder length="0.85" radius="0.62" />
+      </geometry>
+ </collision>
+  </link>
+
+  <joint name="rear_left_wheel_joint" type="continuous">
+      <origin xyz="-0.305 0.305 0.02953" rpy="-1.5707963267949 0.343792057554545 3.14159265358979" />
+      <parent link="base_link" />
+      <child link="rear_left_wheel_link" />
+      <axis xyz="0 0 -1" />
+  </joint>
+
+  <link name="rear_right_wheel_link" >
+  <inertial>
+      <mass value="3" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.025" ixy="0" ixz="0" iyy="0.025" iyz="0" izz="0.045" />
+  </inertial>
+  <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://ir100_description/meshes/wheel.STL" />
+      </geometry>
+      <material name="black"/>
+  </visual>
+  <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.85" radius="0.62" />
+      </geometry>
+  </collision>
+  </link>
+
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <origin xyz="-0.305 -0.305 0.02953" rpy="1.5707963267949 0.343792057554545 3.14159265358979" />
+    <parent link="base_link" />
+    <child link="rear_right_wheel_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+
+  <link name="imu_link" />
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0.223 0 0.21" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu_link" />
+  </joint>
+
+  <link name="camera_link" />
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.32194 0 0.20709" rpy="0 0.2617 0" />
+    <parent link="base_link" />
+    <child link="camera_link" />
+  </joint>
+  
+  <link name="laser" />
+  <joint name="laser_joint" type="fixed">
+    <origin xyz="0.287 0 0.29154" rpy="3.141592654 0 0" />
+    <parent link="base_link" />
+    <child link="laser" />
+  </joint>
+
+  <link name="left_sonar_link" />
+  <joint name="left_sonsr_joint" type="fixed">
+    <origin xyz="0.31 0.0855 0.344" rpy="0 0 0.313" />
+    <parent link="base_link" />
+    <child link="left_sonar_link" />
+  </joint>
+
+  <link name="right_sonar_link" />
+  <joint name="right_sonar_joint" type="fixed">
+    <origin xyz="0.31 -0.0855  0.344" rpy="0 0 -0.313" />
+    <parent link="base_link" />
+    <child link="right_sonar_link" />
+  </joint>
+  
+
+</xacro:macro>
+</robot>
